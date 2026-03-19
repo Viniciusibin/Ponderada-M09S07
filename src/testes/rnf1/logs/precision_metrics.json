@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-03-19T14:34:06.641373+00:00",
+  "sla": {
+    "precision": "ao centavo (Decimal + ROUND_HALF_UP)",
+    "max_divergence_cents": 0
+  },
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "cases": [
+    {
+      "id": "TC-P-01",
+      "description": "Cálculo padrão SP — consultoria R$ 15.750,99 com regras v2.0.0",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TC-P-02",
+      "description": "Caso de borda RJ — arredondamento ROUND_HALF_UP em R$ 33.333,33",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TC-P-03",
+      "description": "Regras expiradas v1.0.0 — deve lançar ExpiredRulesError (HTTP 422)",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "id": "TC-P-04",
+      "description": "Versão de regras inexistente — deve lançar UnknownRulesVersionError",
+      "status": "PASS",
+      "errors": []
+    }
+  ]
+}

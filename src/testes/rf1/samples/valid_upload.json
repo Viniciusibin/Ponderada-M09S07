@@ -1,0 +1,19 @@
+{
+  "_description": "Payload válido: metadados completos, base64 correto, hash SHA-256 íntegro e tamanho consistente.",
+  "request_id": "a1b2c3d4-0000-4000-8000-000000000001",
+  "timestamp": "2026-03-19T10:00:00.000000+00:00",
+  "metadata": {
+    "cycle": "2026-03",
+    "phase": "upload",
+    "trace_id": "TR-2026-0001"
+  },
+  "documents": [
+    {
+      "doc_type": "sped",
+      "filename": "sped_fiscal_mar2026.txt",
+      "content_base64": "U1BFRCBGSVNDQUwgVkFMSURPIC0gRU1QUkVTQSBYWVogTFREQSAtIENJQ0xPIDIwMjYtMDM=",
+      "sha256": "3dd1ff8f360ac2c1aee54ac3b63013888390e8aadf4f767afe7abc1570d1ee85",
+      "size_bytes": 53
+    }
+  ]
+}

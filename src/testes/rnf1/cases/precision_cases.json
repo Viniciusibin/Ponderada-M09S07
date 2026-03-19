@@ -1,0 +1,71 @@
+[
+  {
+    "id": "TC-P-01",
+    "description": "Cálculo padrão SP — consultoria R$ 15.750,99 com regras v2.0.0",
+    "request": {
+      "request_id": "rnf1-tc-01",
+      "rules_version": "2.0.0",
+      "base_value": "15750.99",
+      "state": "SP",
+      "service_type": "consultoria"
+    },
+    "expected": {
+      "icms": "2835.18",
+      "iss": "393.77",
+      "pis": "259.89",
+      "cofins": "1197.08",
+      "total_tax": "4685.92",
+      "net_value": "11065.07"
+    },
+    "expect_error": false
+  },
+  {
+    "id": "TC-P-02",
+    "description": "Caso de borda RJ — arredondamento ROUND_HALF_UP em R$ 33.333,33",
+    "request": {
+      "request_id": "rnf1-tc-02",
+      "rules_version": "2.0.0",
+      "base_value": "33333.33",
+      "state": "RJ",
+      "service_type": "consultoria"
+    },
+    "expected": {
+      "icms": "6666.67",
+      "iss": "833.33",
+      "pis": "550.00",
+      "cofins": "2533.33",
+      "total_tax": "10583.33",
+      "net_value": "22750.00"
+    },
+    "expect_error": false
+  },
+  {
+    "id": "TC-P-03",
+    "description": "Regras expiradas v1.0.0 — deve lançar ExpiredRulesError (HTTP 422)",
+    "request": {
+      "request_id": "rnf1-tc-03",
+      "rules_version": "1.0.0",
+      "base_value": "50000.00",
+      "state": "SP",
+      "service_type": "consultoria"
+    },
+    "expected": null,
+    "expect_error": true,
+    "expected_error_type": "ExpiredRulesError",
+    "fiscal_impact_note": "Com v1.0.0 SP=12%: ICMS=6000, ISS=1000, PIS=825, COFINS=1500 → total=9325. Com v2.0.0 SP=18%: ICMS=9000, ISS=1250, PIS=825, COFINS=3800 → total=14875. Diferença de R$ 5.550,00 — subfaturamento fiscal configuraria autuação."
+  },
+  {
+    "id": "TC-P-04",
+    "description": "Versão de regras inexistente — deve lançar UnknownRulesVersionError",
+    "request": {
+      "request_id": "rnf1-tc-04",
+      "rules_version": "9.9.9",
+      "base_value": "10000.00",
+      "state": "SP",
+      "service_type": "auditoria"
+    },
+    "expected": null,
+    "expect_error": true,
+    "expected_error_type": "UnknownRulesVersionError"
+  }
+]

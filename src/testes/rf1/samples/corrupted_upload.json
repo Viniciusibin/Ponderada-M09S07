@@ -1,0 +1,19 @@
+{
+  "_description": "Payload corrompido: hash SHA-256 adulterado, tamanho inconsistente e trace_id ausente. Deve ser BLOQUEADO com HTTP 422.",
+  "request_id": "a1b2c3d4-0000-4000-8000-000000000002",
+  "timestamp": "2026-03-19T10:05:00.000000+00:00",
+  "metadata": {
+    "cycle": "2026-03",
+    "phase": "upload",
+    "trace_id": ""
+  },
+  "documents": [
+    {
+      "doc_type": "sped",
+      "filename": "sped_corrompido.txt",
+      "content_base64": "U1BFRCBGSVNDQUwgVkFMSURPIC0gRU1QUkVTQSBYWVogTFREQSAtIENJQ0xPIDIwMjYtMDM=",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 9999
+    }
+  ]
+}
