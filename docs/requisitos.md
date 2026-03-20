@@ -3,16 +3,17 @@
 
 ---
 
-## 1. Empresa selecionada e contexto
+## 1. Empresa selecionada e aspecto não funcional
 
-**ASIS TaxTech** é uma empresa de tecnologia fiscal que oferece uma plataforma API-First para processamento de obrigações acessórias (SPED, DCTF, NFSe). Clientes de grande porte submetem seus arquivos fiscais via API e recebem relatórios de auditoria tributária automatizados.
+A empresa selecionada é a ASIS TaxTech, uma plataforma API-First de auditoria fiscal que processa obrigações acessórias (SPED, DCTF, NFSe) para clientes corporativos com prazos legais improrrogáveis.
 
-O problema central que motiva estes requisitos é o **"Dia 20 de cada mês"**: dezenas de empresas enviam simultaneamente seus arquivos antes do prazo da Receita Federal. Nesse pico, dois riscos são críticos:
+O aspecto não funcional analisado é a confiabilidade dos dados fiscais — a capacidade do sistema de rejeitar entradas inválidas antes de qualquer processamento e de garantir que cálculos tributários produzam sempre o mesmo resultado correto, independentemente do volume ou da frequência de chamadas.
 
-1. **Dados corrompidos entrando no pipeline fiscal** — um upload com hash adulterado ou metadados ausentes pode gerar cálculos incorretos que se propagam silenciosamente.
-2. **Imprecisão monetária em cálculos tributários** — usar aritmética de ponto flutuante ou regras expiradas gera subfaturamento fiscal com risco de autuação.
+Esse aspecto é sustentado por código de duas formas complementares. Primeiro, o serviço de validação de upload (`IntegrityService`) usa modelos Pydantic com validadores customizados que verificam, em tempo de execução, se o conteúdo do arquivo corresponde ao hash SHA-256 declarado e se os metadados obrigatórios estão presentes — qualquer divergência bloqueia o processamento antes que dados corrompidos entrem no pipeline fiscal. Segundo, o serviço de cálculo tributário (`TaxService`) usa aritmética `Decimal` com arredondamento `ROUND_HALF_UP` e um mecanismo de versionamento de regras que impede o uso de alíquotas expiradas, garantindo que o resultado seja sempre determinístico e auditável.
 
-Este documento implementa e afere esses dois riscos como **código executável e auditável**.
+Ambos os mecanismos geram artefatos JSON por execução (relatório de integridade e métricas de precisão), o que permite integrar a verificação na esteira de CI/CD: se qualquer cenário falhar, o runner retorna código de saída `1` e o pipeline é bloqueado.
+
+O "Dia 20 de cada mês" é o cenário crítico: dezenas de empresas enviam simultaneamente arquivos SPED antes do prazo da Receita Federal. Sem o código de validação, dois riscos se concretizam silenciosamente — dados corrompidos propagando erros nos cálculos fiscais, e alíquotas expiradas gerando subfaturamento com risco de autuação.
 
 ---
 
@@ -161,4 +162,4 @@ Resultado: 4/4 PASS
 | RF1 | Funcional | Dados corrompidos no pipeline fiscal | `UploadPayload` (Pydantic) + `IntegrityService.validate()` |
 | RNF1 | Não-funcional | Imprecisão monetária / regras expiradas | `TaxService.calculate()` com `Decimal` + `ExpiredRulesError` |
 
-Ambos os requisitos geram **artefatos auditáveis** por execução (JSON de relatório/métricas), permitindo integração com CI/CD: se qualquer cenário falhar, o runner retorna código de saída `1` e o pipeline é bloqueado.
+Ambos os requisitos geram artefatos auditáveis por execução (JSON de relatório/métricas), permitindo integração com CI/CD: se qualquer cenário falhar, o runner retorna código de saída `1` e o pipeline é bloqueado.

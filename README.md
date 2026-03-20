@@ -1,27 +1,19 @@
 # Ponderada M09S07 — ASIS TaxTech
 
-Implementação da atividade ponderada: **requisitos como ativo de software** para a empresa digital **ASIS TaxTech**.
+Implementação da atividade ponderada: requisitos como ativo de software para a empresa digital ASIS TaxTech.
 
 ---
 
 ## Empresa selecionada
 
-**ASIS TaxTech** — plataforma API-First de auditoria fiscal. Processa arquivos SPED, DCTF e NFSe de grandes empresas com prazo crítico no dia 20 de cada mês.
+ASIS TaxTech — plataforma API-First de auditoria fiscal. Processa arquivos SPED, DCTF e NFSe de grandes empresas com prazo crítico no dia 20 de cada mês.
 
-O aspecto não-funcional central é a **confiabilidade dos dados fiscais**: uploads corrompidos e imprecisão monetária são riscos que se propagam silenciosamente e geram autuações da Receita Federal.
+O aspecto não-funcional central é a confiabilidade dos dados fiscais: uploads corrompidos e imprecisão monetária são riscos que se propagam silenciosamente e geram autuações da Receita Federal.
 
 ---
 
 ## O que foi implementado
 
-| # | Requisito | Tipo | Pontos |
-|---|---|---|---|
-| RF1 | Integridade de Upload | Funcional | 5,0 |
-| RNF1 | Precisão Tributária Determinística | Não-funcional | 5,0 |
-
-Documentação completa: [`docs/requisitos.md`](docs/requisitos.md)
-
----
 
 ## Setup
 
